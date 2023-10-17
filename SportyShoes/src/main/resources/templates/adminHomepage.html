@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin Homepage</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+	integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+	crossorigin="anonymous">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+	<div>
+		<button type="button" class="btn btn-warning" id="showUsers">Show
+			Users</button>
+		<button type="button" class="btn btn-info" id="showShoes">Show
+			Shoes</button>
+		<button type="button" class="btn btn-dark" id="showPurchase">Show
+			Purchase Reports</button>
+		<a th:href="@{/addShoe}" class="btn btn-success btn-m mb-15" >Add Shoe</a>
+	</div>
+	<br>
+	<table id="users" style="width: 80%" border="1"
+		class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Gender</th>
+				<th>City</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="user:${userList}">
+				<td th:text="${user.name}"></td>
+				<td th:text="${user.age}"></td>
+				<td th:text="${user.gender}"></td>
+				<td th:text="${user.city}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table id="shoes" style="width: 80%" border="1"
+		class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Model</th>
+				<th>Name</th>
+				<th>Size</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="shoe:${shoeList}">
+				<td th:text="${shoe.id}"></td>
+				<td th:text="${shoe.model}"></td>
+				<td th:text="${shoe.name}"></td>
+				<td th:text="${shoe.size}"></td>
+				<td th:text="${shoe.price}"></td>
+				<td><a th:href="@{/updateShoe/{id}(id=${shoe.id})}"
+					class="btn btn-primary">Update</a> <a
+					th:href="@{/deleteShoes/{id}(id=${shoe.id})}"
+					class="btn btn-danger">Delete</a></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table id="reports" style="width: 80%" border="1"
+		class="table table-striped table-responsive-md">
+		<thead>
+			<tr>
+				<th>User-Name</th>
+				<th>Date of Purchase</th>
+				<th>Shoe Name</th>
+				<th>Shoe Size</th>
+				<th>Shoe Model</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="report:${reportList}">
+				<td th:text="${report.userName}"></td>
+				<td th:text="${report.dop}"></td>
+				<td th:text="${report.shoeName}"></td>
+				<td th:text="${report.shoeSize}"></td>
+				<td th:text="${report.shoeModel}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<script>
+	
+	$('#users').hide();
+    $('#shoes').hide();
+	$('#reports').hide();
+	
+	$('#showUsers').click(function(){
+		  if ($('#users').is(':visible')) {
+		    $('#users').hide()
+		  } else {
+		    $('#users').show()
+		  }
+		})
+	$('#showShoes').click(function(){
+		  if ($('#shoes').is(':visible')) {
+		    $('#shoes').hide()
+		  } else {
+		    $('#shoes').show()
+		  }
+		})
+$('#showPurchase').click(function(){
+		  if ($('#reports').is(':visible')) {
+		    $('#reports').hide()
+		  } else {
+		    $('#reports').show()
+		  }
+		})
+	</script>
+</body>
+</html>
